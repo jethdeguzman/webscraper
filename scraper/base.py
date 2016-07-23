@@ -20,4 +20,4 @@ class BaseScraper(object):
         raise NotImplementedError("Subclass must implement this to perform parsing with html content from the source url")
 
     def cleaned_data(self):
-        return data
+        return self.data

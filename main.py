@@ -2,6 +2,7 @@ import json
 from flask import Flask, request, Response
 from scraper.mmda import MMDAScraper
 from scraper.climatex import ClimatexScraper
+from scraper.mrt import MrtScraper
 
 app = Flask(__name__)
 
@@ -32,6 +33,16 @@ def climatex():
     scraper.get_html_content()
     response_data = {
         'category' : 'weather',
+        'data' : scraper.cleaned_data()
+    }
+    return json.dumps(response_data)
+
+@app.route("/api/0/mrt", methods=['GET'])
+def mrt():
+    scraper = MrtScraper()
+    scraper.get_html_content()
+    response_data = {
+        'category' : 'mrt',
         'data' : scraper.cleaned_data()
     }
     return json.dumps(response_data)
