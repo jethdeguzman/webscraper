@@ -1,0 +1,28 @@
+#!/bin/bash
+
+build() {
+    docker build -t codeawesome/webscraper .
+}
+
+deploy() {
+    docker run -p 0.0.0.0.:5000:5000 --name webscraper -d codeawesome/webscraper
+}
+
+undeploy() {
+    docker stop webscraper
+    docker rm webscraper
+}
+
+case "$1" in
+    build)
+        build $2
+        ;;
+    deploy)
+        deploy $2
+        ;;
+    undeploy)
+        undeploy $2
+        ;;
+    *)
+        echo "webscraper build|deploy|undeploy"
+esac

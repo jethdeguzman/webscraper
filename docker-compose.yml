@@ -1,0 +1,7 @@
+web:
+  build: .
+  command: uwsgi --ini uwsgi.ini
+  volumes: 
+    - .:/webscraper
+  ports:
+    - "5000:5000"
