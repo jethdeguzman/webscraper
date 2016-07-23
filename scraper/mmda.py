@@ -16,7 +16,9 @@ class MMDAScraper(BaseScraper):
             north_bound['status'] = line_col[1].find('div', 'line-status').contents[3].text
             north_bound['datetime'] = line_col[0].find('p').text.replace('Updated', '')
             line_data = {'name' : line_name, 'south_bound' : south_bound, 'north_bound' : north_bound}
-            self.data.append(line_data.copy())
+            data.append(line_data.copy())
+
+        self.data = data
 
     def get_source_url(self):
         return "http://mmdatraffic.interaksyon.com/line-view-%s.php" % (self.params['main_line'].lower())
