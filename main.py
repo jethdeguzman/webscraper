@@ -1,6 +1,7 @@
 import json
 from flask import Flask, request, Response
 from scraper.mmda import MMDAScraper
+from scraper.climatex import ClimatexScraper
 
 app = Flask(__name__)
 
@@ -18,6 +19,19 @@ def mmda():
     scraper.get_html_content()
     response_data = {
         'category' : 'traffic',
+        'data' : scraper.cleaned_data()
+    }
+    return json.dumps(response_data)
+
+@app.route("/api/0/climatex", methods=['POST'])
+def climatex():
+    data = json.loads(request.data)
+
+    scraper = ClimatexScraper()
+    scraper.params = {'location' : data['location']}
+    scraper.get_html_content()
+    response_data = {
+        'category' : 'weather',
         'data' : scraper.cleaned_data()
     }
     return json.dumps(response_data)
