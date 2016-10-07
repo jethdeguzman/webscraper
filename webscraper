@@ -5,7 +5,7 @@ build() {
 }
 
 deploy() {
-    docker run -p 0.0.0.0.:5000:5000 --name webscraper -d codeawesome/webscraper
+    docker run -p 0.0.0.0:5000:5000 --name webscraper -d codeawesome/webscraper
 }
 
 undeploy() {
